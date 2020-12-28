@@ -29,9 +29,14 @@ add_library(utils
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_SOURCE_DIR src)
-set(ASSIGNMENTS assignment0)
+set(ASSIGNMENTS assignment0 assignment1)
 
-add_executable(assignment0 src/assignment0/main.cpp src/assignment0/Loader.h src/assignment0/Loader.cpp src/assignment0/camera.h src/assignment0/camera.cpp)
+add_executable(assignment0
+        src/assignment0/main.cpp src/utils/Loader.h src/utils/Loader.cpp
+        src/utils/camera.h src/utils/camera.cpp)
+add_executable(assignment1 src/assignment1/main.cpp
+        src/assignment1/MatchStickMan.cpp src/assignment1/MatchStickMan.h
+        src/utils/Loader.cpp src/utils/camera.h src/utils/camera.cpp)
 
 foreach(ASSIGNMENT ${ASSIGNMENTS})
     target_link_libraries(${ASSIGNMENT} utils ${OPENGL_LIBRARIES} glew freeglut freeglut_static glfw)
