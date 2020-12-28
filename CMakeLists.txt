@@ -20,29 +20,19 @@ include_directories(${DEPENDENCIES_DIR}/glfw/include/)
 add_subdirectory(${DEPENDENCIES_DIR}/freeglut)
 include_directories(${DEPENDENCIES_DIR}/freeglut/include/)
 
+# for header only libraries (eigen3, glm)
+include_directories(${DEPENDENCIES_DIR}/include)
+
 # add utils library
 add_library(utils
         src/utils/LoadShaders.cpp)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_SOURCE_DIR src)
 set(ASSIGNMENTS assignment0)
 
+add_executable(assignment0 src/assignment0/main.cpp src/assignment0/Loader.h src/assignment0/Loader.cpp src/assignment0/camera.h src/assignment0/camera.cpp)
+
 foreach(ASSIGNMENT ${ASSIGNMENTS})
-    add_executable(${ASSIGNMENT} src/${ASSIGNMENT}/main.cpp)
-    target_link_libraries(${ASSIGNMENT} utils ${OPENGL_LIBRARIES} glew freeglut freeglut_static)
-
+    target_link_libraries(${ASSIGNMENT} utils ${OPENGL_LIBRARIES} glew freeglut freeglut_static glfw)
 endforeach(ASSIGNMENT)
-
-
-
-## FreeGLUT Init
-#if (${FLAG} MATCHES "GLUT")
-#    add_subdirectory(${DEPENDENCIES_DIR}/freeglut)
-#    include_directories(${DEPENDENCIES_DIR}/freeglut/include/)
-##    link_directories(${CMAKE_BINARY_DIR}/lib ${CMAKE_BINARY_DIR}/dependencies/freeglut/lib)
-##    # GLUT + GLEW
-#    target_link_libraries(CGAssignment ${OPENGL_LIBRARIES} glew freeglut)
-##    set(LIBRARIES ${OPENGL_LIBRARIES}
-##            debug freeglutd debug freeglut_staticd optimized freeglut optimized freeglut_static
-##            debug libglew32d debug glew32d optimized libglew32 optimized glew32)
-#endif (${FLAG} MATCHES "GLUT")
